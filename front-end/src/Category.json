@@ -1,0 +1,27 @@
+[
+    {
+        "id": 1,
+        "title": "Bienestar",
+        "description": "Descubre un mundo de relajación y cuidado personal con nuestra amplia gama de actividades de bienestar. Sumérgete en spas de lujo, disfruta de terapias rejuvenecedoras y encuentra la armonía en entornos tranquilos."
+    },
+    {
+        "id": 2,
+        "title": "Entretenimiento",
+        "description": "Déjate llevar por la diversión y la emoción en nuestras experiencias de entretenimiento. Desde conciertos en vivo y teatro hasta eventos deportivos y parques temáticos, aquí encontrarás una amplia variedad de opciones para disfrutar momentos inolvidables."
+    },
+    {
+        "id": 3,
+        "title": "Gastronomía",
+        "description": "Embárcate en un viaje culinario y descubre los sabores más exquisitos con nuestras experiencias gastronómicas. Desde restaurantes de alta cocina hasta degustaciones de vinos y tours gastronómicos, te invitamos a deleitar tu paladar y explorar las maravillas de la gastronomía."
+    },
+    {
+        "id": 4,
+        "title": "Aventura",
+        "description": "Despierta tu espíritu aventurero y vive emocionantes experiencias al aire libre con nuestras actividades de aventura. Desde senderismo y escalada hasta deportes acuáticos y paracaidismo, te ofrecemos la oportunidad de explorar nuevos horizontes y disfrutar de la adrenalina en entornos impresionantes."
+    },
+    {
+        "id": 5,
+        "title": "Escapadas",
+        "description": "Escapa de la rutina diaria y sumérgete en experiencias únicas con nuestras escapadas. Descubre destinos encantadores, relájate en alojamientos acogedores y explora paisajes pintorescos."
+    }
+]

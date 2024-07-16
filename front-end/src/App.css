@@ -1,0 +1,55 @@
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-weight: 500;
+    color:#2C2C2C;
+    font-family: 'Open Sans', sans-serif;
+    /* height: 200vh; */
+}
+
+.footer{
+    position: fixed;
+    bottom: 0;
+    background-color: #0f9ea8;
+    width: 100vw;
+}
+
+.my-footer{
+    display: flex;
+    justify-content: space-between;
+}
+
+.copyright{
+    color: white;
+}
+
+.DashNavbar{
+    width: 15%;
+}
+
+/*Estilos condicionales para Drop-Down menu en Navbar*/
+.dropdown-menu::before{
+    content : "";
+        position:absolute;
+        top:-5px;
+        right:20px;
+        height:20px;
+        width:20px;
+        transform: rotate(45deg);
+
+}
+.dropdown-menu.active{
+    opacity:1px;
+    visibility : visible;
+    transform: translateY(0);
+    transition: var(--speed) ease;
+
+}
+.dropdown-menu.inactive{
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(-20px);
+    transition: var(--speed) ease;
+
+}

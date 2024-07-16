@@ -1,0 +1,80 @@
+stages:
+    - build_backend
+    - deploy_backend
+    - build_frontend
+    - deploy_frontend
+    - test
+
+build_frontend:
+  stage: build_frontend
+  image: node:latest
+  script:
+    - echo "Building the app"
+    - cd ./front-end
+    - npm install
+    - npm run build
+    - echo "Finished building the app."
+  artifacts:
+    name: react_build
+    paths:
+      - front-end/dist/
+  rules:
+    - changes:
+        - front-end/**/*
+    
+build_backend:
+  stage: build_backend
+  image: maven:3.8.6-openjdk-18
+  script:
+    - cd back-end/digitalBooking/
+    - echo "Building app..."
+    - mvn clean install
+    - echo "Finished building the app."
+  artifacts:
+      paths:
+        - back-end/digitalBooking/target/
+  rules:
+    - changes:
+        - back-end/digitalBooking/**/*
+
+deploy_backend:
+  stage: deploy_backend
+  needs: [build_backend]
+  image: node:latest
+  before_script:
+    - apk update && apk add openssh-client bash
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - touch ~/.ssh/config
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - ssh-keyscan -H 18.219.139.64 >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+  script:
+    - echo "Deploying started..."
+    - ssh ubuntu@18.219.139.64 "sudo systemctl stop explorar.service"
+    - scp back-end/digitalBooking/target/*.jar ubuntu@18.219.139.64:~/explorar
+    - ssh ubuntu@18.219.139.64 "sudo systemctl start explorar.service"
+    - echo "Finished deploying the app."
+  rules:
+    - changes:
+        - back-end/digitalBooking/**/*
+
+deploy_frontend:
+  stage: deploy_frontend
+  needs: [build_frontend]
+  image: python:latest
+  script:
+    - pip install awscli
+    - aws configure set aws_secret_key_id $AWS_ACCESS_KEY_ID
+    - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+    - aws s3 sync front-end/dist/ s3://explor-ar-c5-g5
+  rules:
+    - changes:
+        - front-end/**/*
+
+test-job:
+    stage: test
+    script: 'echo "Hola test job"'
+
